@@ -46,10 +46,15 @@ public class Movies {
     
        // declare a connection.
     private Connection con = null;
-    
+   
     {
         try {
             con = DriverManager.getConnection(url, user, password);
+            String query = "select * from Film";
+            stat = con.createStatement();
+            String sql = "insert into Film " + " (Movie)" + "values ('Planet of the monkies')";
+            stat.executeUpdate(sql);
+            rs = stat.executeQuery(query);
             System.out.println("Connected");
         } catch (SQLException ex) {
             Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,7 +70,8 @@ public class Movies {
        
     }
     
+
+ 
     
     
-   
 }
