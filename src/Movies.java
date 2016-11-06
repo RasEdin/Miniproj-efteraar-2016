@@ -14,64 +14,54 @@ import java.util.logging.Logger;
  */
 public class Movies {
 
-    // the url
-    String url = "jdbc:postgresql://localhost:5432/Film";
-    // the username
-    String user = "postgres";
-    // the password
-    String password = "batman1993";
-    //  The Statement
-    Statement stat = null;
-    // Declare The ResultSet
-    ResultSet rs = null;
+    private Connection con;
+    private Statement stat = null;
+     ResultSet rs = null;
 
     public void connect() {
-        System.out.println("--postgreSql JDBC connection test---");
-
         try {
-            //      Locate my postgres JDBCdriver
-            Class.forName("org.postgresql.Driver");
-
-        } catch (ClassNotFoundException ex) {
-            // Catch exception
-            System.out.println("JDBC is missing");
-            ex.printStackTrace();
-            return;
-        }
-        System.out.println("postgreSQL JDBC driver is registered");
-
-    }
-    
-
-    
-       // declare a connection.
-    private Connection con = null;
-   
-    {
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            String query = "select * from Film";
-            stat = con.createStatement();
-            String sql = "insert into Film " + " (Movie)" + "values ('Planet of the monkies')";
-            stat.executeUpdate(sql);
-            rs = stat.executeQuery(query);
-            System.out.println("Connected");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pro", "postgres", "batman1993");
+            System.out.println("Connection succesful");
         } catch (SQLException ex) {
-            Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (con != null); {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            ex.printStackTrace();
+
         }
-        }
-       
     }
+
+    public void Insertdata() {
+        try {
+            stat = con.createStatement();
+            stat.executeUpdate("insert into film(movie) values()");
+            System.out.println("add done");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        }
+    }
+
+    public void Readdata() {
+        try {
+            String query = "select * from film";
+            stat = con.createStatement();
+            rs = stat.executeQuery(query);
+            System.out.println("Movie names:");
+            while(rs.next()){
+                String movie = rs.getString("movie");
+                System.out.println(movie);
+                
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
+         
+        }
+    }
+
+}
+    
     
 
  
     
     
-}
+
