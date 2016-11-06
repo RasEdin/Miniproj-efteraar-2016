@@ -56,6 +56,20 @@ public class Movies {
          
         }
     }
+    
+   public void Delete(){
+        try{
+            String query = "Delete from film where movie='Hello'";
+            stat = con.createStatement();
+            int rowsAffected = stat.executeUpdate(query);
+            
+            System.out.println("Rows affected:" + rowsAffected);
+            System.out.println("Delete done");
+        } catch (SQLException ex) {
+            Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
 }
     
