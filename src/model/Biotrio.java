@@ -12,10 +12,10 @@ import java.util.*;
  * @author Rasmus laptop
  */
 public class Biotrio {
-    ArrayList<User> users = new ArrayList<>();
-    ArrayList<Film> films = new ArrayList<>();
-    ArrayList<Forestilling> forestillinger = new ArrayList<>();
-    ArrayList<Sal> sale = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Film> films = new ArrayList<>();
+    private ArrayList<Forestilling> forestillinger = new ArrayList<>();
+    private ArrayList<Sal> sale = new ArrayList<>();
 
     public Biotrio() {
     }

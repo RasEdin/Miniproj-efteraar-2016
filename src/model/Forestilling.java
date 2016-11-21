@@ -12,19 +12,23 @@ package model;
 public class Forestilling {
     private String tidspunkt;
     private int id;
-    Film[] film;
-    Sal sal;
+    private Film[] film;
+    private Sal sal;
 
-    public Forestilling() {
+    
+
+    public Forestilling(String tidspunkt, Film[] film, Sal sal) {
+        this.tidspunkt = tidspunkt;
+        this.film = film;
+        this.sal = sal;
     }
-
     public Forestilling(String tidspunkt, int id, Film[] film, Sal sal) {
         this.tidspunkt = tidspunkt;
         this.id = id;
         this.film = film;
         this.sal = sal;
     }
-
+    
     public String getTidspunkt() {
         return tidspunkt;
     }

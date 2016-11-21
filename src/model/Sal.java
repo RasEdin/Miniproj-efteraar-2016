@@ -10,34 +10,38 @@ package model;
  * @author Rasmus laptop
  */
 public class Sal {
-    private int[] kolonner;
-    private int[] rækker;
+    private int kolonner;
+    private int rækker;
     private int id;
     private String navn;
 
-    public Sal() {
-    }
 
-    public Sal(int[] kolonner, int[] rækker, int id, String navn) {
+    public Sal(int kolonner, int rækker, int id, String navn) {
         this.kolonner = kolonner;
         this.rækker = rækker;
         this.id = id;
         this.navn = navn;
     }
-
-    public int[] getKolonner() {
+    
+    public Sal(int kolonner, int rækker, String navn) {
+        this.kolonner = kolonner;
+        this.rækker = rækker;
+        this.navn = navn;
+    }
+    
+    public int getKolonner() {
         return kolonner;
     }
 
-    public void setKolonner(int[] kolonner) {
+    public void setKolonner(int kolonner) {
         this.kolonner = kolonner;
     }
 
-    public int[] getRækker() {
+    public int getRækker() {
         return rækker;
     }
 
-    public void setRækker(int[] rækker) {
+    public void setRækker(int rækker) {
         this.rækker = rækker;
     }
 

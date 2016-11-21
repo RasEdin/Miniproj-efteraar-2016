@@ -10,17 +10,20 @@ package model;
  * @author Rasmus laptop
  */
 public class User {
+
     private String navn;
     private String telefon;
     private int id;
-
-    public User() {
-    }
 
     public User(String navn, String telefon, int id) {
         this.navn = navn;
         this.telefon = telefon;
         this.id = id;
+    }
+
+    public User(String navn, String telefon) {
+        this.navn = navn;
+        this.telefon = telefon;
     }
 
     public String getNavn() {
@@ -51,7 +54,5 @@ public class User {
     public String toString() {
         return "User{" + "navn=" + navn + ", telefon=" + telefon + ", id=" + id + '}';
     }
-    
-    
-    
+
 }

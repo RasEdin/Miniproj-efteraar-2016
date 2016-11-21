@@ -13,19 +13,21 @@ public class Film {
     private String titel;
     private String varighed;
     private String beskrivelse;
+    private int id;
 
-    //constructors
-
-    public Film() {
-        titel = "";
-        varighed ="";
-        beskrivelse ="";
-    }
+    //constructors    
 
     public Film(String titel, String varighed, String beskrivelse) {
         this.titel = titel;
         this.varighed = varighed;
         this.beskrivelse = beskrivelse;
+    }
+    
+    public Film(String titel, String varighed, String beskrivelse, int id) {
+        this.titel = titel;
+        this.varighed = varighed;
+        this.beskrivelse = beskrivelse;
+        this.id = id;
     }
     
     
@@ -54,6 +56,14 @@ public class Film {
 
     public void setBeskrivelse(String beskrivelse) {
         this.beskrivelse = beskrivelse;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
