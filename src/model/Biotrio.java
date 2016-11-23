@@ -15,7 +15,7 @@ public class Biotrio {
     private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Film> films = new ArrayList<>();
     private ArrayList<Forestilling> forestillinger = new ArrayList<>();
-    private ArrayList<Sal> sale = new ArrayList<>();
+    private ArrayList<Sal> sal = new ArrayList<>();
 
     public Biotrio() {
     }
@@ -45,12 +45,12 @@ public class Biotrio {
         this.forestillinger = forestillinger;
     }
 
-    public ArrayList<Sal> getSale() {
-        return sale;
+    public ArrayList<Sal> getSal() {
+        return sal;
     }
 
-    public void setSale(ArrayList<Sal> sale) {
-        this.sale = sale;
+    public void setSal(ArrayList<Sal> sal) {
+        this.sal = sal;
     }
     
     

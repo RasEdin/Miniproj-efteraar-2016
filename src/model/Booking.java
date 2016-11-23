@@ -13,14 +13,14 @@ public class Booking {
     private User user;
     private Forestilling forestilling;
     private int rækker;
-    private int kolonner;
+    private int Sæde;
     private int id;
 
     public Booking(User user, Forestilling forestilling, int rækker, int kolonner, int id) {
         this.user = user;
         this.forestilling = forestilling;
         this.rækker = rækker;
-        this.kolonner = kolonner;
+        this.Sæde = kolonner;
         this.id = id;
     }
 
@@ -28,7 +28,7 @@ public class Booking {
         this.user = user;
         this.forestilling = forestilling;
         this.rækker = rækker;
-        this.kolonner = kolonner;
+        this.Sæde = kolonner;
     }
 
     public User getUser() {
@@ -55,12 +55,12 @@ public class Booking {
         this.rækker = rækker;
     }
 
-    public int getKolonner() {
-        return kolonner;
+    public int getSæde() {
+        return Sæde;
     }
 
-    public void setKolonner(int kolonner) {
-        this.kolonner = kolonner;
+    public void setSæde(int Sæde) {
+        this.Sæde = Sæde;
     }
 
     public int getId() {

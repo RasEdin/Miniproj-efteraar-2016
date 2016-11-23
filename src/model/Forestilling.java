@@ -42,19 +42,7 @@ public class Forestilling {
     }
 
     public String getTidspunkt() {
-        try {
-
-            String tidspunkt = "insert into film(dato) values(?)";
-            pst = con.prepareStatement(tidspunkt);
-
-            pst.setString(1, ((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText());
-
-            pst.executeUpdate();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        }
+  
         return tidspunkt;
     }
 
@@ -71,16 +59,7 @@ public class Forestilling {
     }
 
     public Sal getSal() {
-         try {
-
-            String sal = "insert into film(sal) values(?)";
-            pst = con.prepareStatement(sal);            
-            pst.setInt(1, Integer.parseInt(jComboBox1.getSelectedItem().toString()));
-           pst.executeUpdate();           
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-        }
+        
         return sal;
     }
 
