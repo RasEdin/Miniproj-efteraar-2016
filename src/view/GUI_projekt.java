@@ -5,7 +5,6 @@ package view;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -44,7 +43,6 @@ public class GUI_projekt extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPnlup = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -66,8 +64,6 @@ public class GUI_projekt extends javax.swing.JFrame {
         jBtnConnect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTabbedPane4.addTab("Bio Trio ", jPanel2);
 
         jPnlup.setPreferredSize(new java.awt.Dimension(400, 75));
         jPnlup.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,10 +311,6 @@ public class GUI_projekt extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxtFieldAdminNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFieldAdminNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtFieldAdminNameActionPerformed
-
     private void jBtnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConnectActionPerformed
         // TODO add your handling code here:
         String name = jtxtFieldAdminName.getText();
@@ -331,7 +323,7 @@ public class GUI_projekt extends javax.swing.JFrame {
                 Logger.getLogger(GUI_projekt.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/login", "postgres", "12345");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pro", "postgres", "batman1993");
 
             pst = con.prepareStatement(sql);
             pst.setString(1, name);
@@ -339,9 +331,8 @@ public class GUI_projekt extends javax.swing.JFrame {
             rs = pst.executeQuery();
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Admin name and Password Matched");
-                GUI_insertToDB in = new GUI_insertToDB();
-                in.setVisible(true);
-                setVisible(false);
+                Admin admin = new Admin();
+                admin.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Admin name and Password Not Correct");
             }
@@ -349,9 +340,13 @@ public class GUI_projekt extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
 
-//        DB_connection connect = DB_connection.getInstance();
+        //        DB_connection connect = DB_connection.getInstance();
 
     }//GEN-LAST:event_jBtnConnectActionPerformed
+
+    private void jtxtFieldAdminNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFieldAdminNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtFieldAdminNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,7 +390,6 @@ public class GUI_projekt extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPnlBtnCancel;
     private javax.swing.JPanel jPnlBtnConennect;
     private javax.swing.JPanel jPnlCenter;
