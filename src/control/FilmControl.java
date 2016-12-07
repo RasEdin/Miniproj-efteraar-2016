@@ -129,14 +129,13 @@ public class FilmControl {
         }        
     }
     
-    public void ticket(String booking, int phone,int theticket){
+    public void ticket( int phone,int id){
         try {
 
-            String sql = "insert into customers(booking,number,ticket) values(?,?,?)";
-            Db_Connection.getInstance().pst = Db_Connection.getInstance().con.prepareStatement(sql);            
-            Db_Connection.getInstance().pst.setString(1,booking);            
-            Db_Connection.getInstance().pst.setInt(2, phone);
-            Db_Connection.getInstance().pst.setInt(3, theticket);
+            String sql = "insert into ticket(telefon,forestilling) values(?,?)";
+            Db_Connection.getInstance().pst = Db_Connection.getInstance().con.prepareStatement(sql);                       
+            Db_Connection.getInstance().pst.setInt(1, phone);
+            Db_Connection.getInstance().pst.setInt(2, id);
             Db_Connection.getInstance().pst.executeUpdate();           
         } catch (SQLException ex) {
             ex.printStackTrace();
