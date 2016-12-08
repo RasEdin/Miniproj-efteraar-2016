@@ -29,6 +29,7 @@ import javax.swing.table.TableModel;
  * @author slmns
  */
 public class kunder extends javax.swing.JFrame {
+    
     private int id;
     private int counter = 0;
     private int x = 2;
@@ -38,26 +39,28 @@ public class kunder extends javax.swing.JFrame {
     private ResultSet rs = null;
     private PreparedStatement pst;
     private FilmControl table = new FilmControl();
-    private JButton[][] seats = new JButton[x][y];
+    private JButton[][] seats;
     private ImageIcon stol = new ImageIcon(getClass().getResource("stol.jpg"));
-    private    KnapStuff knapStuff = new KnapStuff();
-    private int[][] persons;
+    private KnapStuff knapStuff = new KnapStuff();
+    private int[][] persons = new int[1][2];
+    private int sal;
+    private int number;
+
     /**
      * Creates new form kunder
      */
     public kunder() {
+        
         initComponents();
-
+        
         try {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pro", "postgres", "batman1993");
         } catch (SQLException ex) {
             Logger.getLogger(kunder.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         table.readTable(MoviesTabel);
-
-        setupTheSeatLayout(0);
-
+        
     }
 
     /**
@@ -77,11 +80,14 @@ public class kunder extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         MoviesTabel = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,24 +133,26 @@ public class kunder extends javax.swing.JFrame {
         jScrollPane1.setViewportView(MoviesTabel);
 
         jButton4.setText("Book");
+        jButton4.setEnabled(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
+        jLabel2.setText("Search");
+
+        jLabel3.setText("Search date");
+
+        jLabel1.setText("Antal billetter");
+
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        jComboBox1.setEnabled(false);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Antal billetter");
-
-        jLabel2.setText("Search");
-
-        jLabel3.setText("Search date");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,8 +162,41 @@ public class kunder extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 127, Short.MAX_VALUE)
+            .addGap(0, 339, Short.MAX_VALUE)
         );
+
+        jScrollPane2.setViewportView(jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jButton5.setText("vælg forestilling");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,26 +220,21 @@ public class kunder extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,18 +247,17 @@ public class kunder extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton4)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jButton4)
+                .addGap(76, 76, 76))
         );
 
         pack();
@@ -243,19 +278,21 @@ public class kunder extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-table.ticket(Integer.parseInt(JOptionPane.showInputDialog("Phone number")), id);
-
-try {
-
+        table.ticket(Integer.parseInt(JOptionPane.showInputDialog("Phone number")), id);
+        String tltTxt = "where telefon =" + Integer.parseInt(JOptionPane.showInputDialog("bækræft nummer")) + "";        
+        String tltTxt2 = " and forestilling = " + id + "";
+        try {
+            
             switch (jComboBox1.getSelectedIndex()) {
                 case 0:
-                    String sql1 = "insert into ticket(pr1,ps1) values(?,?)";
+                    String sql1 = "update ticket set pr1=?, ps1=? " + tltTxt + tltTxt2;
                     pst = con.prepareStatement(sql1);
                     pst.setInt(1, persons[0][0]);
                     pst.setInt(2, persons[0][1]);
+                    
                     break;
                 case 1:
-                    String sql2 = "insert into ticket(pr1,ps1,pr2,ps2) values(?,?,?,?)";
+                    String sql2 = "update ticket set pr1=?, ps1=?, pr2=?, ps2=? " + tltTxt + tltTxt2;
                     pst = con.prepareStatement(sql2);
                     pst.setInt(1, persons[0][0]);
                     pst.setInt(2, persons[0][1]);
@@ -263,7 +300,7 @@ try {
                     pst.setInt(4, persons[1][1]);
                     break;
                 case 2:
-                    String sql3 = "insert into ticket(pr1,ps1,pr2,ps2,pr3,ps3) values(?,?,?,?,?,?)";
+                    String sql3 = "update ticket set pr1=?, ps1=?, pr2=?, ps2=?, pr3=?, ps3=? " + tltTxt + tltTxt2;
                     pst = con.prepareStatement(sql3);
                     pst.setInt(1, persons[0][0]);
                     pst.setInt(2, persons[0][1]);
@@ -273,7 +310,7 @@ try {
                     pst.setInt(6, persons[2][1]);
                     break;
                 case 3:
-                    String sql = "insert into ticket(pr1,ps1,pr2,ps2,pr3,ps3,pr4,ps4) values(?,?,?,?,?,?,?,?)";
+                    String sql = "update ticket set pr1=?, ps1=?, pr2=?, ps2=?, pr3=?, ps3=?, pr4=?, ps4=? " + tltTxt + tltTxt2;
                     pst = con.prepareStatement(sql);
                     pst.setInt(1, persons[0][0]);
                     pst.setInt(2, persons[0][1]);
@@ -287,54 +324,60 @@ try {
                 default:
                     break;
             }
-
+            System.out.println(pst);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Add Done");
             processTicket(id);
         } catch (SQLException ex) {
             ex.printStackTrace();
-
+            
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void MoviesTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MoviesTabelMouseClicked
-
+        
         int index = MoviesTabel.getSelectedRow();
         TableModel model = MoviesTabel.getModel();
-
+        
         this.id = Integer.parseInt(model.getValueAt(index, 0).toString());
-        int sal = Integer.parseInt(model.getValueAt(index, 2).toString());
-
+        this.sal = Integer.parseInt(model.getValueAt(index, 2).toString());
+        
         setupTheSeatLayout(sal);
-        for (int i = 0; i < seats.length; i++) {
-            for (int j = 0; j < seats[i].length; j++) {
-                seats[i][j] = new JButton((j + 1) + " ");
-                seats[i][j].setBackground(Color.GREEN);
-                seats[i][j].setIcon(stol);
-                seats[i][j].addActionListener(knapStuff);
-            }
-        }
-
+        
         processTicket(id);
     }//GEN-LAST:event_MoviesTabelMouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-if (jComboBox1.getSelectedIndex() < 4) {
+       
+        if (jComboBox1.getSelectedIndex() < 4) {
             this.persons = new int[jComboBox1.getSelectedIndex() + 1][2];
-             for (int i = 0; i < seats.length; i++) {
+            for (int i = 0; i < seats.length; i++) {
                 for (int j = 0; j < seats[i].length; j++) {
                     seats[i][j].setBackground(Color.GREEN);
                     seats[i][j].setIcon(stol);
                 }
-
-            } 
+                
+            }
             processTicket(id);
             counter = 0;
-         int   number = jComboBox1.getSelectedIndex();
+            int number = jComboBox1.getSelectedIndex();
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jPanel1.removeAll();
+        setupTheSeatLayout(sal);
+        jPanel1.revalidate();
+        this.validate();
+        jPanel1.repaint();
+        if (!jComboBox1.isEnabled() && !jButton4.isEnabled()) {
+            jComboBox1.setEnabled(true);
+            jButton4.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -374,81 +417,117 @@ if (jComboBox1.getSelectedIndex() < 4) {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void setupTheSeatLayout(int x) {
-        switch (x) {
+    private void setupTheSeatLayout(int u) {
+        switch (u) {
             case 1:
-                this.x = 14;
-                this.y = 20;
-                jPanel1.setLayout(new java.awt.GridLayout(this.x, y));
+                this.seats = new JButton[14][20];
                 for (int i = 0; i < seats.length; i++) {
                     for (int j = 0; j < seats[i].length; j++) {
-
-                        jPanel1.add(seats[i][j]);
-
+                        seats[i][j] = new JButton((j + 1) + " ");
+                        seats[i][j].setBackground(Color.GREEN);
+                        seats[i][j].setIcon(stol);
+                        seats[i][j].addActionListener(knapStuff);
                     }
-
                 }
+                jPanel1.setLayout(new java.awt.GridLayout(14, 20));
+                for (int i = 0; i < seats.length; i++) {
+                    for (int j = 0; j < seats[i].length; j++) {
+                        
+                        jPanel1.add(seats[i][j]);
+                        
+                    }
+                    
+                }
+                processTicket(id);
                 break;
-
+            
             case 2:
-                this.x = 8;
-                this.y = 12;
-                jPanel1.setLayout(new java.awt.GridLayout(this.x, y));
+                
+                this.seats = new JButton[8][12];
                 for (int i = 0; i < seats.length; i++) {
                     for (int j = 0; j < seats[i].length; j++) {
-
-                        jPanel1.add(seats[i][j]);
-
+                        seats[i][j] = new JButton((j + 1) + " ");
+                        seats[i][j].setBackground(Color.GREEN);
+                        seats[i][j].setIcon(stol);
+                        seats[i][j].addActionListener(knapStuff);
                     }
-
                 }
+                jPanel1.setLayout(new java.awt.GridLayout(8, 12));
+                for (int i = 0; i < seats.length; i++) {
+                    for (int j = 0; j < seats[i].length; j++) {
+                        
+                        jPanel1.add(seats[i][j]);
+                        
+                    }
+                    
+                }
+                processTicket(id);
                 break;
-
+            
             case 3:
-                this.x = 8;
-                this.y = 6;
-                jPanel1.setLayout(new java.awt.GridLayout(this.x, y));
+                this.seats = new JButton[8][6];
                 for (int i = 0; i < seats.length; i++) {
                     for (int j = 0; j < seats[i].length; j++) {
-
-                        jPanel1.add(seats[i][j]);
-
+                        seats[i][j] = new JButton((j + 1) + " ");
+                        seats[i][j].setBackground(Color.GREEN);
+                        seats[i][j].setIcon(stol);
+                        seats[i][j].addActionListener(knapStuff);
                     }
-
                 }
-
-            default:
-                this.x = 2;
-                this.y = 2;
-                jPanel1.setLayout(new java.awt.GridLayout(this.x, y));
+                jPanel1.setLayout(new java.awt.GridLayout(8, 6));
                 for (int i = 0; i < seats.length; i++) {
                     for (int j = 0; j < seats[i].length; j++) {
-
+                        
                         jPanel1.add(seats[i][j]);
-
+                        
                     }
-
+                    
                 }
-
+                processTicket(id);
                 break;
-
+            default:
+                this.seats = new JButton[2][2];
+                for (int i = 0; i < seats.length; i++) {
+                    for (int j = 0; j < seats[i].length; j++) {
+                        seats[i][j] = new JButton((j + 1) + " ");
+                        seats[i][j].setBackground(Color.GREEN);
+                        seats[i][j].setIcon(stol);
+                        seats[i][j].addActionListener(knapStuff);
+                    }
+                }
+                jPanel1.setLayout(new java.awt.GridLayout(2, 2));
+                for (int i = 0; i < seats.length; i++) {
+                    for (int j = 0; j < seats[i].length; j++) {
+                        
+                        jPanel1.add(seats[i][j]);
+                        
+                    }
+                    
+                }
+                processTicket(id);
+                
+                break;
+            
         }
     }
-
+    
     private void processTicket(int id) {
         ArrayList<Integer> seatRow = new ArrayList<>();
         ArrayList<Integer> seatColumn = new ArrayList<>();
-
+        
         String sql1 = "select pr1, pr2, pr3, pr4 from ticket where forestilling =" + id + "";
         try {
             pst = con.prepareStatement(sql1);
@@ -467,11 +546,11 @@ if (jComboBox1.getSelectedIndex() < 4) {
                     seatRow.add(rs.getInt("pr4"));
                 }
             }
-
+            
         } catch (SQLException ex) {
             ex.getStackTrace();
         }
-
+        
         String sql2 = "select ps1, ps2, ps3, ps4 from ticket where forestilling =" + id + "";
         try {
             pst = con.prepareStatement(sql2);
@@ -490,47 +569,47 @@ if (jComboBox1.getSelectedIndex() < 4) {
                     seatColumn.add(rs.getInt("ps4"));
                 }
             }
-
+            
         } catch (SQLException ex) {
             ex.getStackTrace();
         }
-
+        
         for (int i = 0; i < seatRow.size(); i++) {
-
+            
             seats[seatRow.get(i) - 1][seatColumn.get(i) - 1].setBackground(Color.RED);
-
+            
         }
-
+        
     }
-
-     private class KnapStuff implements ActionListener {
-
+    
+    private class KnapStuff implements ActionListener {
+        
         public void actionPerformed(ActionEvent ae) {
-
+            
             Object source = ae.getSource();
-
+            
             for (int i = 0; i < seats.length; i++) {
                 for (int j = 0; j < seats[i].length; j++) {
                     if (source == seats[i][j]) {
-
+                        
                         if (Color.GREEN.equals(seats[i][j].getBackground())) {
-
+                            
                             processClick1(i, j);
-
+                            
                             return;
                         } else {
                             return;
                         }
-
+                        
                     }
-
+                    
                 }
-
+                
             }
         }
-
+        
         private void processClick1(int i, int j) {
-
+            
             if (counter < jComboBox1.getSelectedIndex() + 1) {
                 if (persons[counter][0] != 0) {
                     seats[persons[counter][0] - 1][persons[counter][1] - 1].setBackground(Color.GREEN);
@@ -548,10 +627,10 @@ if (jComboBox1.getSelectedIndex() < 4) {
                 persons[counter][1] = j + 1;
                 seats[i][j].setBackground(Color.RED);
                 counter++;
-
+                
             }
-
+            
         }
-
+        
     }
 }
